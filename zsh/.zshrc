@@ -83,8 +83,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions zsh-vi-mode)
 
-source $ZSH/oh-my-zsh.sh
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -117,7 +115,7 @@ alias gp="git add . && git commit -m '$(date)' && git push"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 fpath+=${ZDOTDIR:-~}/.zsh_functions
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/dev/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export PATH=$PATH:$HOME/.local/bin
 
