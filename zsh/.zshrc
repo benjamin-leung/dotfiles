@@ -113,6 +113,7 @@ plugins=(git zsh-autosuggestions zsh-vi-mode)
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim=nvim
 alias al="vim ~/.config/alacritty/alacritty.toml"
+alias cd="cdls"
 alias gp="git add . && git commit -m '$(date)' && git push"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -121,6 +122,10 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 source /home/dev/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export PATH=$PATH:$HOME/.local/bin
+
+function cdls() {
+  builtin cd "$1" && ls
+}
 
 tmux-sessionizer() {
   if [[ $# -eq 1 ]]; then
