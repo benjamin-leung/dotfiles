@@ -123,15 +123,34 @@ source /home/dev/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlight
 
 export PATH=$PATH:$HOME/.local/bin
 
-function cdls() {
+function cdls {
   builtin cd "$1" && ls
+}
+
+function gwa {
+  echo "Enter the name of the worktree branch to create (e.g. feature/<branch>)"
+  read worktree_branch
+  worktree_directory=$(basename $worktree_branch)
+  current_folder=$(basename $(pwd))
+  directory="$HOME/code/worktrees/$current_folder"
+  if [ ! -d "$directory" ]; then
+    echo "Creating $directory"
+    mkdir $directory -p
+  else
+    echo "$directory already exists"
+  fi
+  git worktree add "$HOME/code/worktrees/$current_folder/$worktree_directory" -b $worktree_branch
 }
 
 tmux-sessionizer() {
   if [[ $# -eq 1 ]]; then
     selected=$1
   else
-    selected=$(find ~/code -mindepth 1 -maxdepth 1 -type d | fzf)
+    # selected=$(find ~/code -mindepth 1 -maxdepth 1 -type d | fzf)
+    projects=$(find ~/code -mindepth 1 -maxdepth 1 -type d)
+    worktrees=$(find ~/code/worktrees -mindepth 2 -maxdepth 2 -type d)
+    merged=( "${projects[@]}" "\n${worktrees[@]}" )
+    selected=$(echo $merged | fzf)
   fi
 
   if [[ -z $selected ]]; then
