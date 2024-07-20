@@ -1,6 +1,6 @@
-# if [ -z "$TMUX" ]; then
-#   exec tmux new-session -A -s workspace
-# fi
+if [ -z "$TMUX" ]; then
+  exec tmux new-session -A -s workspace
+fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -133,13 +133,19 @@ function gwa {
   worktree_directory=$(basename $worktree_branch)
   current_folder=$(basename $(pwd))
   directory="$HOME/code/worktrees/$current_folder"
+
   if [ ! -d "$directory" ]; then
     echo "Creating $directory"
     mkdir $directory -p
   else
     echo "$directory already exists"
   fi
-  git worktree add "$HOME/code/worktrees/$current_folder/$worktree_directory" -b $worktree_branch
+
+  if git show-branch --list | grep -q $worktree_branch; then
+    git worktree add "$HOME/code/worktrees/$current_folder/$worktree_directory" $worktree_branch
+  else
+    git worktree add "$HOME/code/worktrees/$current_folder/$worktree_directory" -b $worktree_branch
+  fi
 }
 
 tmux-sessionizer() {
