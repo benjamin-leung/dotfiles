@@ -149,7 +149,7 @@ tmux-sessionizer() {
     # selected=$(find ~/code -mindepth 1 -maxdepth 1 -type d | fzf)
     projects=$(find ~/code -mindepth 1 -maxdepth 1 -type d)
     worktrees=$(find ~/code/worktrees -mindepth 2 -maxdepth 2 -type d)
-    merged=( "${projects[@]}" "\n${worktrees[@]}" )
+    merged=( "${projects[@]}\n${worktrees[@]}" )
     selected=$(echo $merged | fzf)
   fi
 
