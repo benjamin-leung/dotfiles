@@ -148,6 +148,24 @@ function gwa {
   fi
 }
 
+function gwe {
+  selected=$(git show-branch --list -r | fzf)
+  worktree_branch=$(echo $selected | awk -F '[][]' '{print $2}')
+  worktree_directory=$(basename $worktree_branch)
+  selected_name="${worktree_branch#origin/}"
+  current_folder=$(basename $(pwd))
+  directory="$HOME/code/worktrees/$current_folder"
+
+  if [ ! -d "$directory" ]; then
+    echo "Creating $directory"
+    mkdir $directory -p
+  else
+    echo "$directory already exists"
+  fi
+
+  git worktree add "$HOME/code/worktrees/$current_folder/$worktree_directory" -b $selected_name
+}
+
 tmux-sessionizer() {
   if [[ $# -eq 1 ]]; then
     selected=$1
@@ -163,7 +181,9 @@ tmux-sessionizer() {
     exit 0
   fi
 
-  selected_name=$(basename "$selected" | tr . _)
+  parent_directory=$(dirname "$selected" | tr . _)
+  current_directory=$(basename "$selected" | tr . _)
+  selected_name="$parent_directory/$current_directory"
   tmux_running=$(pgrep tmux)
 
   if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
