@@ -163,7 +163,7 @@ function gwe {
     echo "$directory already exists"
   fi
 
-  git worktree add "$HOME/code/worktrees/$current_folder/$worktree_directory" -b $selected_name
+  git worktree add "$HOME/code/worktrees/$current_folder/$worktree_directory" $selected_name
 }
 
 tmux-sessionizer() {
