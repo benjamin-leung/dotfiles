@@ -1020,6 +1020,41 @@ require('lazy').setup({
     },
   },
 
+  {
+    'jackMort/ChatGPT.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('chatgpt').setup {
+        api_host_cmd = 'echo -n ""',
+        api_key_cmd = 'az keyvault secret show --vault-name mpn-shared-kv --name mpn-oai-secret --query value -o tsv',
+        api_type_cmd = 'echo azure',
+        azure_api_base_cmd = 'echo https://mpn-oai.openai.azure.com',
+        azure_api_engine_cmd = 'echo gpt-35-turbo',
+        azure_api_version_cmd = 'echo 2023-03-15-preview',
+      }
+    end,
+    keys = {
+      { '<leader>cc', '<cmd>ChatGPT<CR>', desc = 'ChatGPT' },
+      { '<leader>ce', '<cmd>ChatGPTEditWithInstruction<CR>', desc = 'Edit With Instruction' },
+      { '<leader>cg', '<cmd>ChatGPTRun grammar_correction<CR>', desc = 'Grammar Correction' },
+      { '<leader>ct', '<cmd>ChatGPTRun translate<CR>', desc = 'Translate' },
+      { '<leader>ck', '<cmd>ChatGPTRun keywords<CR>', desc = 'Keywords' },
+      { '<leader>cd', '<cmd>ChatGPTRun docstring<CR>', desc = 'Docstring' },
+      { '<leader>ca', '<cmd>ChatGPTRun add_tests<CR>', desc = 'Add Tests' },
+      { '<leader>co', '<cmd>ChatGPTRun optimize_code<CR>', desc = 'Optimize Code' },
+      { '<leader>cs', '<cmd>ChatGPTRun summarize<CR>', desc = 'Summarise' },
+      { '<leader>cf', '<cmd>ChatGPTRun fix_bugs<CR>', desc = 'Fix Bugs' },
+      { '<leader>cx', '<cmd>ChatGPTRun explain_code<CR>', desc = 'Explain Code' },
+      { '<leader>cr', '<cmd>ChatGPTRun roxygen_edit<CR>', desc = 'Roxygen Edit' },
+      { '<leader>cl', '<cmd>ChatGPTRun code_readability_analysis<CR>', desc = 'Code Readability Analysis' },
+    },
+  },
+
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
