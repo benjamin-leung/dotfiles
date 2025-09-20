@@ -283,20 +283,25 @@ require('lazy').setup({
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup()
 
-      -- Document existing key chains
-      require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-        ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+      -- Document existing key chains using the new spec format
+      require('which-key').add {
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>c_', hidden = true },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>d_', hidden = true },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>r_', hidden = true },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>s_', hidden = true },
+        { '<leader>w', group = '[W]orkspace' },
+        { '<leader>w_', hidden = true },
+        { '<leader>t', group = '[T]oggle' },
+        { '<leader>t_', hidden = true },
+        { '<leader>h', group = 'Git [H]unk' },
+        { '<leader>h_', hidden = true },
+        -- visual mode
+        { '<leader>h', desc = 'Git [H]unk', mode = 'v' },
       }
-      -- visual mode
-      require('which-key').register({
-        ['<leader>h'] = { 'Git [H]unk' },
-      }, { mode = 'v' })
     end,
   },
 
@@ -580,7 +585,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {
+        ts_ls = {
           indentSize = 2,
         },
 
@@ -1017,41 +1022,6 @@ require('lazy').setup({
       { '<leader>xq', '<cmd>TroubleToggle quickfix<CR>', desc = 'Open trouble quickfix list' },
       { '<leader>xl', '<cmd>TroubleToggle loclist<CR>', desc = 'Open trouble location list' },
       { '<leader>xt', '<cmd>TodoTrouble<CR>', desc = 'Open todos in trouble' },
-    },
-  },
-
-  {
-    'jackMort/ChatGPT.nvim',
-    event = 'VeryLazy',
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-    },
-    config = function()
-      require('chatgpt').setup {
-        api_host_cmd = 'echo -n ""',
-        api_key_cmd = 'az keyvault secret show --vault-name mpn-shared-kv --name mpn-oai-secret --query value -o tsv',
-        api_type_cmd = 'echo azure',
-        azure_api_base_cmd = 'echo https://mpn-oai.openai.azure.com',
-        azure_api_engine_cmd = 'echo gpt-35-turbo',
-        azure_api_version_cmd = 'echo 2023-03-15-preview',
-      }
-    end,
-    keys = {
-      { '<leader>cc', '<cmd>ChatGPT<CR>', desc = 'ChatGPT' },
-      { '<leader>ce', '<cmd>ChatGPTEditWithInstruction<CR>', desc = 'Edit With Instruction' },
-      { '<leader>cg', '<cmd>ChatGPTRun grammar_correction<CR>', desc = 'Grammar Correction' },
-      { '<leader>ct', '<cmd>ChatGPTRun translate<CR>', desc = 'Translate' },
-      { '<leader>ck', '<cmd>ChatGPTRun keywords<CR>', desc = 'Keywords' },
-      { '<leader>cd', '<cmd>ChatGPTRun docstring<CR>', desc = 'Docstring' },
-      { '<leader>ca', '<cmd>ChatGPTRun add_tests<CR>', desc = 'Add Tests' },
-      { '<leader>co', '<cmd>ChatGPTRun optimize_code<CR>', desc = 'Optimize Code' },
-      { '<leader>cs', '<cmd>ChatGPTRun summarize<CR>', desc = 'Summarise' },
-      { '<leader>cf', '<cmd>ChatGPTRun fix_bugs<CR>', desc = 'Fix Bugs' },
-      { '<leader>cx', '<cmd>ChatGPTRun explain_code<CR>', desc = 'Explain Code' },
-      { '<leader>cr', '<cmd>ChatGPTRun roxygen_edit<CR>', desc = 'Roxygen Edit' },
-      { '<leader>cl', '<cmd>ChatGPTRun code_readability_analysis<CR>', desc = 'Code Readability Analysis' },
     },
   },
 
