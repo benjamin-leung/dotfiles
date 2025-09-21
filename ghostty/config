@@ -6,5 +6,6 @@ mouse-hide-while-typing = true
 window-decoration = true
 # keybind = global:cmd+/=toggle_quick_terminal
 macos-option-as-alt = true
+mouse-scroll-multiplier = 1
 # background-opacity = 0.7
 # background-blur-radius = 20 
