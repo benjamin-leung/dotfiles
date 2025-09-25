@@ -52,9 +52,21 @@ $env.config.keybindings = ($env.config.keybindings | append {
   event: { send: executehostcommand cmd: "tmux-sessionizer" }
 })
 
+# Vault sync command - navigate, commit all changes, and push
+def vault-sync [] {
+    cd /Users/benjaminleung/Code/vault
+    git add .
+    let commit_msg = (date now | format date "%a %d %b %Y %H:%M:%S AEST")
+    git commit -m $commit_msg
+    git push
+}
+
+alias v = vault-sync
 alias vim = nvim
 alias z = zoxide
 alias lg = lazygit
+alias nu-open = open
+alias open = ^open
 
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
