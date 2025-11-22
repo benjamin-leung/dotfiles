@@ -6,6 +6,7 @@
 (defsrc
   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11   f12
   caps a s d f j k l ;
+  spc
   fn
 )
 (defvar
@@ -14,7 +15,7 @@
 )
 
 (defalias
-  escmeh (tap-hold 100 100 esc (multi lctl lalt lsft))
+  spcmeh (tap-hold 150 250 spc (multi lctl lalt lsft))
   a (tap-hold $tap-time $hold-time a a)
   s (tap-hold $tap-time $hold-time s lmet)
   d (tap-hold $tap-time $hold-time d lalt)
@@ -28,12 +29,14 @@
 
 (deflayer base
   brdn  brup  _    _    _    _   prev  pp  next  mute  vold  volu
-  @escmeh @a @s @d @f @j @k @l @;
+  esc @a @s @d @f @j @k @l @;
+  @spcmeh
   @fnl
 )
 
 (deflayer fn
   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11   f12
-  @escmeh _ _ _ _ _ _ _ _
+  esc _ _ _ _ _ _ _ _
+  @spcmeh
   fn
 )
